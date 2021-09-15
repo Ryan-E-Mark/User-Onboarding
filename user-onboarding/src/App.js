@@ -28,8 +28,15 @@ function App() {
   const [users, setUsers] = useState(initialUsers)
   const [formValues, setFormValues] = useState(initialFormValues)
   const [formErrors, setFormErrors] = useState(initialFormErrors)
-  const [disables, setDisabled] = useState(initialDisabled)
+  const [disabled, setDisabled] = useState(initialDisabled)
 
+  
+  const validate = (name, value) => {
+    yup.reach(formSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: ''}))
+      .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
+  }
 
   const getUsers = () => {
     axios.get(`https://reqres.in/api/users`)
@@ -51,6 +58,7 @@ function App() {
 
 
   const onChange = (name, value) => {
+    validate(name, value);
     setFormValues({...formValues, [name]: value})
   }
 
@@ -68,6 +76,10 @@ function App() {
     getUsers()
   }, [])
 
+  useEffect(() => {
+    formSchema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formValues])
+
   return (
     <div>
       
@@ -75,6 +87,8 @@ function App() {
       values={formValues}
       onChange={onChange}
       onSubmit={onSubmit}
+      disabled={disabled}
+      errors={formErrors}
       />
       {users.map(user => {
         return (

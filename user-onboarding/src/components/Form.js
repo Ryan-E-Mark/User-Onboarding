@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Form(props) {
 
-    const { values, onChange, onSubmit } = props;
+    const { values, onChange, onSubmit, disabled, errors } = props;
 
     const submit = evt => {
         evt.preventDefault();
@@ -56,7 +56,13 @@ export default function Form(props) {
                                 onChange={change}
                             />
                     </label>
-                    <button>Submit!</button>
+                    <button disabled={disabled}>Submit!</button>
+                    <div className="error-text">
+                        <p>{errors.first_name}</p>
+                        <p>{errors.email}</p>
+                        <p>{errors.password}</p>
+                        <p>{errors.terms}</p>
+                    </div>
                 </form>
             </div>
         </div>
