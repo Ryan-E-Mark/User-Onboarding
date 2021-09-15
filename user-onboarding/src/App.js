@@ -90,11 +90,15 @@ function App() {
       disabled={disabled}
       errors={formErrors}
       />
-      {users.map(user => {
-        return (
-        <User  info={user} />
-        )
-      })}
+      <div className="friends-container">
+        <h2>Existing Friends!</h2>
+        {users.map(user => {
+          return (
+          <User  info={user} />
+          )
+        })}
+      </div>
+      
     </div>
     
     

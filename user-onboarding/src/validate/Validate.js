@@ -15,6 +15,11 @@ const formSchema = yup.object().shape({
         .required('A password is required!')
         .min(6, 'Password must be at least 6 characters!'),
     terms: yup.boolean(),
+    country: yup.boolean(),
+    hiphop: yup.boolean(),
+    rock: yup.boolean(),
+    metal: yup.boolean(),
+    jazz: yup.boolean(),
 })
 
 export default formSchema;
