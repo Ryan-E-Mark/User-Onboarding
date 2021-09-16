@@ -42,4 +42,36 @@ describe('Checking that cypress can navigate to my site and run tests', () => {
         termsInput().click();
         submitBtn().click();
     })
+
+    describe('See if there is an error if each input field is left empty', () => {
+
+        it('if name is empty', () => {
+            emailInput().type('anemail@email.com');
+            passwordInput().type('password');
+            termsInput().click();
+            submitBtn().should('be.disabled');
+        })
+
+        it('if email is empty', () => {
+            textInput().type('name')
+            passwordInput().type('password');
+            termsInput().click();
+            submitBtn().should('be.disabled');
+        })
+
+        it('if password is empty', () => {
+            textInput().type('name')
+            emailInput().type('anemail@email.com');
+            termsInput().click();
+            submitBtn().should('be.disabled');
+        })
+
+        it('if terms is left unclicked', () => {
+            textInput().type('name')
+            emailInput().type('anemail@email.com');
+            passwordInput().type('password');
+            submitBtn().should('be.disabled');
+        })
+    })
+
 })
